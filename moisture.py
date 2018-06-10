@@ -41,37 +41,64 @@ Panic over! Plant has water again :)
 
 # This is our sendEmail function
 
-def sendEmail(smtp_message):
+def sendEmail(smtp_message, ZONE):
 	try:
 		smtpObj = smtplib.SMTP(smtp_host, smtp_port)
 		smtpObj.login(smtp_username, smtp_password) # If you don't need to login to your smtp provider, simply remove this line
-		smtpObj.sendmail(smtp_sender, smtp_receivers, smtp_message)         
+		smtpObj.sendmail(smtp_sender, smtp_receivers, smtp_message + "ZONE = " + ZONE)         
 		print "Successfully sent email"
 	except smtplib.SMTPException:
 		print "Error: unable to send email"
 
 # This is our callback function, this function will be called every time there is a change on the specified GPIO channel, in this example we are using 17
 
-def callback(channel):  
-	if GPIO.input(channel):
+def callbackZone1(ZONE):  
+	if GPIO.input(ZONE):
 		print "LED off"
-		sendEmail(message_dead)
+		sendEmail(message_dead, ZONE)
 	else:
 		print "LED on"
-		sendEmail(message_alive)
+		sendEmail(message_alive, ZONE)
+		
+def callbackZone2(ZONE):  
+	if GPIO.input(ZONE):
+		print "LED off"
+		sendEmail(message_dead, ZONE)
+	else:
+		print "LED on"
+		sendEmail(message_alive, ZONE)
+
+def callbackZone3(ZONE):  
+	if GPIO.input(ZONE):
+		print "LED off"
+		sendEmail(message_dead, ZONE)
+	else:
+		print "LED on"
+		sendEmail(message_alive, ZONE)
+
 
 # Set our GPIO numbering to BCM
 GPIO.setmode(GPIO.BCM)
 
 # Define the GPIO pin that we have our digital output from our sensor connected to
-channel = 17
+ZONE_1 = 17
+ZONE_2 = 13
+ZONE_3 = 19
+
 # Set the GPIO pin to an input
-GPIO.setup(channel, GPIO.IN)
+GPIO.setup(ZONE_1, GPIO.IN)
+GPIO.setup(ZONE_2, GPIO.IN)
+GPIO.setup(ZONE_3, GPIO.IN)
 
 # This line tells our script to keep an eye on our gpio pin and let us know when the pin goes HIGH or LOW
-GPIO.add_event_detect(channel, GPIO.BOTH, bouncetime=300)
+GPIO.add_event_detect(ZONE_1, GPIO.BOTH, bouncetime=300)
+GPIO.add_event_detect(ZONE_2 GPIO.BOTH, bouncetime=300)
+GPIO.add_event_detect(ZONE_3, GPIO.BOTH, bouncetime=300)
+
 # This line asigns a function to the GPIO pin so that when the above line tells us there is a change on the pin, run this function
-GPIO.add_event_callback(channel, callback)
+GPIO.add_event_callback(ZONE_1, callbackZone1)
+GPIO.add_event_callback(ZONE_2, callbackZone2)
+GPIO.add_event_callback(ZONE_3, callbackZone3)
 
 # This is an infinte loop to keep our script running
 while True:
