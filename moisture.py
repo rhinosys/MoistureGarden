@@ -56,28 +56,28 @@ def callbackZone1(ZONE):
 	print("ZONE = " + str(ZONE))
 	if GPIO.input(ZONE):
 		print "LED off"
-		sendEmail(message_dead, ZONE)
+		sendEmail(message_dead, "1")
 	else:
 		print "LED on"
-		sendEmail(message_alive, ZONE)
+		sendEmail(message_alive, "1")
 		
 def callbackZone2(ZONE):  
 	print("ZONE = " + str(ZONE))
 	if GPIO.input(ZONE):
 		print "LED off"
-		sendEmail(message_dead, ZONE)
+		sendEmail(message_dead, "2")
 	else:
 		print "LED on"
-		sendEmail(message_alive, ZONE)
+		sendEmail(message_alive, "2")
 
 def callbackZone3(ZONE):  
 	print("ZONE = " + str(ZONE))
 	if GPIO.input(ZONE):
 		print "LED off"
-		sendEmail(message_dead, ZONE)
+		sendEmail(message_dead, "3")
 	else:
 		print "LED on"
-		sendEmail(message_alive, ZONE)
+		sendEmail(message_alive, "3")
 
 
 # Set our GPIO numbering to BCM
