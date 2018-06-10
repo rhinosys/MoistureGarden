@@ -53,7 +53,7 @@ def sendEmail(smtp_message, ZONE):
 # This is our callback function, this function will be called every time there is a change on the specified GPIO channel, in this example we are using 17
 
 def callbackZone1(ZONE):  
-	print("ZONE = " + ZONE)
+	print("ZONE = " + str(ZONE))
 	if GPIO.input(ZONE):
 		print "LED off"
 		sendEmail(message_dead, ZONE)
@@ -62,7 +62,7 @@ def callbackZone1(ZONE):
 		sendEmail(message_alive, ZONE)
 		
 def callbackZone2(ZONE):  
-	print("ZONE = " + ZONE)
+	print("ZONE = " + str(ZONE))
 	if GPIO.input(ZONE):
 		print "LED off"
 		sendEmail(message_dead, ZONE)
@@ -71,7 +71,7 @@ def callbackZone2(ZONE):
 		sendEmail(message_alive, ZONE)
 
 def callbackZone3(ZONE):  
-	print("ZONE = " + ZONE)
+	print("ZONE = " + str(ZONE))
 	if GPIO.input(ZONE):
 		print "LED off"
 		sendEmail(message_dead, ZONE)
