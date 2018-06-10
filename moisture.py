@@ -45,7 +45,7 @@ def sendEmail(smtp_message, ZONE):
 	try:
 		smtpObj = smtplib.SMTP(smtp_host, smtp_port)
 		smtpObj.login(smtp_username, smtp_password) # If you don't need to login to your smtp provider, simply remove this line
-		smtpObj.sendmail(smtp_sender, smtp_receivers, smtp_message + "ZONE = " + ZONE)         
+		smtpObj.sendmail(smtp_sender, smtp_receivers, smtp_message + "ZONE = " + str(ZONE))         
 		print "Successfully sent email"
 	except smtplib.SMTPException:
 		print "Error: unable to send email"
